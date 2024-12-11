@@ -1,0 +1,8 @@
+@import "./library";
+
+body {
+  min-width: 100vw;
+  min-height: 100dvh;
+  background: $gradient-background;
+  color: $accent-900;
+}

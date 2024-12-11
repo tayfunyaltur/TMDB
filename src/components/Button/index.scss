@@ -1,0 +1,85 @@
+@import "../../styles/library";
+
+.button {
+  display: inline-block;
+  box-sizing: border-box;
+  cursor: pointer;
+  padding: $padding-xs;
+  font-size: $text-size-xs;
+  font-weight: $font-weight-regular;
+  transition: all 300ms;
+  height: fit-content;
+}
+
+.button-primary {
+  &,
+  * {
+    color: $neutral-50;
+  }
+  border-radius: $border-radius-xs;
+  background: $primary-300;
+  box-shadow: $box-shadow-md;
+  border: 1px solid $primary-400;
+
+  &:hover {
+    background: $primary-500;
+  }
+
+  &:active {
+    box-shadow: $box-shadow-none;
+  }
+}
+
+.button-secondary {
+  @extend .button-primary;
+  background: transparent;
+  color: $primary-400;
+
+  &:hover {
+    background: $primary-400;
+    color: $neutral-50;
+  }
+}
+
+.button-ghost {
+  @extend .button-primary;
+  background: transparent;
+  border: 1px solid transparent;
+  box-shadow: $box-shadow-none;
+  color: $primary-400;
+
+  &:hover {
+    color: $neutral-50;
+  }
+}
+
+.button-xs {
+  font-size: $text-size-xs;
+  font-weight: $font-weight-light;
+  padding: $padding-xs;
+  border-radius: $border-radius-xs;
+}
+
+.button-sm {
+  font-size: $text-size-sm;
+  font-weight: $font-weight-light;
+  padding: $padding-sm;
+}
+
+.button-md {
+  font-size: $text-size-md;
+  font-weight: $font-weight-regular;
+  padding: $padding-md;
+}
+
+.button-lg {
+  font-size: $text-size-lg;
+  font-weight: $font-weight-medium;
+  padding: $padding-lg;
+}
+
+.button-xl {
+  font-size: $text-size-xl;
+  font-weight: $font-weight-semibold;
+  padding: $padding-xl;
+}
