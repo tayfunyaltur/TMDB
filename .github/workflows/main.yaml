@@ -1,11 +1,9 @@
 name: Node.js CI with Coverage Report
 
 on:
-  push:
-    pull_request:
+  pull_request:
+    branches:
       - "main"
-    # Optionally, you can add further filters to only trigger on merge commits
-    # by checking the commit message or other details within the job itself.
 
 jobs:
   build:
