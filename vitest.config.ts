@@ -7,7 +7,7 @@ export default defineConfig({
     setupFiles: "./test/setup.ts", // Path to your setup file
     coverage: {
       provider: "istanbul",
-      reporter: ["text"], // Coverage report formats
+      reporter: ["text", "lcov"], // Coverage report formats
       include: ["src/**/*"], // Include files from the src directory
       exclude: ["src/tests/**/*", "src/**/*.test.tsx"], // Exclude test files and test helpers
     },
