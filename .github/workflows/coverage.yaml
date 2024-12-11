@@ -3,44 +3,30 @@ name: Node.js CI with Coverage Report
 on:
   push:
     branches:
-      - "main"  # Trigger workflow when changes are pushed to the main branch
-    # Optional filter for merge commits
-    # By default, the workflow will trigger on any push to main, including merges.
-    # You can further filter this if you only want to run after a merge commit.
-    # However, GitHub doesn't natively differentiate between merge commits in the `push` event.
+      - "main"
+    # Optionally, you can add further filters to only trigger on merge commits
+    # by checking the commit message or other details within the job itself.
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [22.x]
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js ${{ matrix.node-version }}
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
+          node-version: "22.x"
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests and generate coverage report
+      - name: Run Tests and Generate Coverage
         run: npm run coverage
 
-      - name: Deploy coverage report to GitHub Pages
+      - name: Deploy to GitHub Pages
         run: |
-          # Install 'gh-pages' to deploy coverage to GitHub Pages
           npm install --save-dev gh-pages
-          
-          # Build the coverage report directory (usually in 'coverage/lcov-report')
           mkdir -p public
           cp -r coverage/lcov-report/* public/
-          
-          # Publish the report to the gh-pages branch
           npx gh-pages -d public
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
