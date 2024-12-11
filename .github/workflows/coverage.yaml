@@ -28,6 +28,12 @@ jobs:
       - name: Run tests and generate coverage report
         run: npm run coverage
 
+      - name: Set up Git for authentication
+      run: |
+        git config --global user.name "Tayfun Yaltur"
+        git config --global user.email "tayfunyaltur@gmail.com"
+        git config --global url."https://${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
+
       - name: Deploy coverage report to GitHub Pages
         run: |
           # Install 'gh-pages' to deploy coverage to GitHub Pages
@@ -36,10 +42,6 @@ jobs:
           # Build the coverage report directory (usually in 'coverage/lcov-report')
           mkdir -p public
           cp -r coverage/lcov-report/* public/
-
-          git config --global user.email "tayfunyaltur@gmail.com"
-          git config --global user.name "Tayfun Yaltur"
-
 
           # Publish the report to the gh-pages branch
           npx gh-pages -d public
