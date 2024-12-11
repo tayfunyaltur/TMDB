@@ -2,7 +2,8 @@ name: Node.js CI with Coverage Report
 
 on:
   pull_request:
-    - "main"
+    branches:
+      - "main"
 
 jobs:
   build:
