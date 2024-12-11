@@ -1,23 +1,25 @@
-import Button from "./components/Button";
+import Card from "./components/Card";
 import "./styles/index.scss";
 
-type _typeType = "primary" | "secondary" | "ghost";
-type _sizeType = "xs" | "sm" | "md" | "lg" | "xl";
+const _item = {
+  Title: "Batman Beyond",
+  Year: "1999–2001",
+  imdbID: "tt0147746",
+  Type: "series",
+  Poster:
+    "https://m.media-amazon.com/images/M/MV5BMDExYjNiYTYtZDkwZC00NDcxLTk3YWYtMmIyN2ZlZGYyY2E0XkEyXkFqcGc@._V1_SX300.jpg",
+};
 
 function App() {
   return (
     <main className="mainBg">
-      {(["primary", "secondary", "ghost"] as Array<_typeType>).map((_type) => {
-        return (
-          <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
-            {(["xs", "sm", "md", "lg", "xl"] as Array<_sizeType>).map(
-              (_size) => (
-                <Button type={_type} size={_size}>{`${_type} ${_size}`}</Button>
-              )
-            )}
-          </div>
-        );
-      })}
+      <Card
+        poster={_item.Poster}
+        imdbID={_item.imdbID}
+        title={_item.Title}
+        type={_item.Type}
+        year={_item.Year}
+      ></Card>
     </main>
   );
 }
