@@ -37,6 +37,10 @@ jobs:
           mkdir -p public
           cp -r coverage/lcov-report/* public/
 
+          git config --global user.email "tayfunyaltur@gmail.com"
+          git config --global user.name "Tayfun Yaltur"
+
+
           # Publish the report to the gh-pages branch
           npx gh-pages -d public
         env:
