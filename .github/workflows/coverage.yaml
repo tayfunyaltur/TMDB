@@ -2,7 +2,8 @@ name: Node.js CI with Coverage Report
 
 on:
   pull_request:
-    branches: ["main", "dev"]
+    branches:
+      - "main" 
 
 jobs:
   build:
@@ -26,24 +27,26 @@ jobs:
         run: npm ci
 
       - name: Run tests and generate coverage report
-        run: npm run coverage
+        run: npm run test -- --coverage
 
       - name: Set up Git for authentication
         run: |
-          git config --global user.name "Tayfun Yaltur"
-          git config --global user.email "tayfunyaltur@gmail.com"
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          
+          # Ensure HTTPS is used with the GITHUB_TOKEN for authentication
           git config --global url."https://${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
-
+        
       - name: Deploy coverage report to GitHub Pages
         run: |
           # Install 'gh-pages' to deploy coverage to GitHub Pages
           npm install --save-dev gh-pages
-
+          
           # Build the coverage report directory (usually in 'coverage/lcov-report')
           mkdir -p public
           cp -r coverage/lcov-report/* public/
-
+          
           # Publish the report to the gh-pages branch
           npx gh-pages -d public
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Pass GITHUB_TOKEN as environment variable
