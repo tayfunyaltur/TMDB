@@ -27,6 +27,8 @@ jobs:
 
       - name: Deploy to GitHub Pages
         run: |
+          git config --global user.email "tayfunyaltur@gmail.com"
+          git congig --global user.name "Tayfun YALTUR"
           npm install --save-dev gh-pages
           mkdir -p public
           cp -r coverage/lcov-report/* public/
