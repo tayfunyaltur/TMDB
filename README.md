@@ -1,6 +1,6 @@
 # TMBD Projesi
 
-Bu proje, film verilerini alıp görüntülemeye yönelik bir uygulamadır. Uygulama, [TMDb API](https://www.themoviedb.org/) üzerinden film bilgilerini çekmekte ve kullanıcıya sunmaktadır.
+Bu proje, film verilerini alıp görüntülemeye yönelik bir uygulamadır. Uygulama, [OMDb API](https://www.omdbapi.com/) üzerinden film bilgilerini çekmekte ve kullanıcıya sunmaktadır.
 
 ### Başlangıç
 
@@ -8,16 +8,16 @@ Projeyi düzgün çalışabilmek için aşağıdaki adımları takip ediniz:
 
 ## 1. Çevresel Değişkenler
 
-Projenin doğru çalışabilmesi için bir API anahtarına ihtiyacınız var. Bu anahtar, TMDb API'den alınmalıdır.
+Projenin doğru çalışabilmesi için bir API anahtarına ihtiyacınız var. Bu anahtar, OMDb API'den alınmalıdır.
 
 - Proje ana dizininde `.env` adında bir dosya oluşturun.
 - `.env` dosyasının içine şu satırı ekleyin:
-  
+
   ```env
   VITE_API_KEY={api_key}
   ```
-  
-  `{api_key}` kısmını TMDb API'nizle değiştirin. API anahtarınızı [TMDb Geliştirici Portalı](https://www.themoviedb.org/settings/api) üzerinden alabilirsiniz.
+
+  `{api_key}` kısmını OMDb API'nizle değiştirin. API anahtarınızı [OMDb Geliştirici Portalı](https://www.omdbapi.com/apikey.aspx) üzerinden alabilirsiniz.
 
 ## 2. Modüllerin Kurulumu
 
