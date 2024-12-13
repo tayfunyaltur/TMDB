@@ -8,15 +8,21 @@ interface CardProps {
   imdbID: string;
   type: string;
   poster: string;
+  onClick?: () => any;
 }
 
-const Card = ({ title, year, imdbID, type, poster }: CardProps) => {
+const Card = ({ title, year, imdbID, type, poster, onClick }: CardProps) => {
   const onClickIMDB = () => {
     window.open(`https://www.imdb.com/title/${imdbID}/`, "_blank");
   };
 
   return (
-    <div className="card">
+    <div
+      className="card"
+      onClick={() => {
+        !!onClick && onClick();
+      }}
+    >
       <Button type="ghost" onClick={onClickIMDB}>
         <div className="imdb-btn-content">
           <BiLogoImdb data-testid="imdb-logo" />

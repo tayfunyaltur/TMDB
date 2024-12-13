@@ -1,25 +1,15 @@
-import Card from "./components/Card";
+import Movie from "./pages/Movie";
+import Movies from "./pages/Movies";
 import "./styles/index.scss";
-
-const _item = {
-  Title: "Batman Beyond",
-  Year: "1999–2001",
-  imdbID: "tt0147746",
-  Type: "series",
-  Poster:
-    "https://m.media-amazon.com/images/M/MV5BMDExYjNiYTYtZDkwZC00NDcxLTk3YWYtMmIyN2ZlZGYyY2E0XkEyXkFqcGc@._V1_SX300.jpg",
-};
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <main className="mainBg">
-      <Card
-        poster={_item.Poster}
-        imdbID={_item.imdbID}
-        title={_item.Title}
-        type={_item.Type}
-        year={_item.Year}
-      ></Card>
+      <Routes>
+        <Route path="/movie/:id" element={<Movie />} />
+        <Route path="/" element={<Movies />} />
+      </Routes>
     </main>
   );
 }
