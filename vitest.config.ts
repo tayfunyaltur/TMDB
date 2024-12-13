@@ -9,7 +9,7 @@ export default defineConfig({
       provider: "istanbul",
       reporter: ["text", "lcov"], // Coverage report formats
       include: ["src/**/*"], // Include files from the src directory
-      exclude: ["src/tests/**/*", "src/**/*.test.tsx"], // Exclude test files and test helpers
+      exclude: ["src/tests/**/*", "src/**/*.test.tsx", "src/main.tsx"], // Exclude test files and test helpers
     },
   },
 });

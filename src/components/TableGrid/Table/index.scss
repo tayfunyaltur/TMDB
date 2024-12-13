@@ -1,0 +1,36 @@
+@use "../../../styles/library" as *;
+
+.display_table {
+  width: 100%;
+  border-spacing: 0px;
+  margin-top: 20px;
+
+  thead {
+    box-sizing: content-box;
+    background: $primary-600;
+    th {
+      padding: 8px 12px;
+      text-align: left;
+      color: $neutral-100;
+    }
+  }
+  tbody {
+    tr {
+      td {
+        padding: 8px 12px;
+      }
+    }
+
+    tr:nth-of-type(2n) {
+      background: rgba($primary-200, 0.3);
+    }
+
+    tr:nth-of-type(2n + 1) {
+      background: rgba($primary-200, 0.5);
+    }
+  }
+
+  .pointer {
+    cursor: pointer !important;
+  }
+}

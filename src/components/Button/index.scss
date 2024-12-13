@@ -1,9 +1,9 @@
-@import "../../styles/library";
+@use "../../styles/library" as *;
 
 .button {
   display: inline-block;
   box-sizing: border-box;
-  cursor: pointer;
+  cursor: pointer !important;
   padding: $padding-xs;
   font-size: $text-size-xs;
   font-weight: $font-weight-regular;
@@ -16,10 +16,13 @@
   * {
     color: $neutral-50;
   }
-  border-radius: $border-radius-xs;
-  background: $primary-300;
-  box-shadow: $box-shadow-md;
-  border: 1px solid $primary-400;
+
+  & {
+    border-radius: $border-radius-xs;
+    background: $primary-300;
+    box-shadow: $box-shadow-md;
+    border: 1px solid $primary-400;
+  }
 
   &:hover {
     background: $primary-500;

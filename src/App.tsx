@@ -1,23 +1,15 @@
-import Button from "./components/Button";
+import Movie from "./pages/Movie";
+import Movies from "./pages/Movies";
 import "./styles/index.scss";
-
-type _typeType = "primary" | "secondary" | "ghost";
-type _sizeType = "xs" | "sm" | "md" | "lg" | "xl";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <main className="mainBg">
-      {(["primary", "secondary", "ghost"] as Array<_typeType>).map((_type) => {
-        return (
-          <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
-            {(["xs", "sm", "md", "lg", "xl"] as Array<_sizeType>).map(
-              (_size) => (
-                <Button type={_type} size={_size}>{`${_type} ${_size}`}</Button>
-              )
-            )}
-          </div>
-        );
-      })}
+      <Routes>
+        <Route path="/movie/:id" element={<Movie />} />
+        <Route path="/" element={<Movies />} />
+      </Routes>
     </main>
   );
 }

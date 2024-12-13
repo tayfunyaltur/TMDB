@@ -1,0 +1,85 @@
+@use "../../styles/library" as *;
+
+.card {
+  & {
+    position: relative;
+    overflow: hidden;
+    border-radius: $border-radius-md;
+    cursor: pointer;
+    border: 1px solid $primary-200;
+  }
+
+  img {
+    transition: scale 300ms;
+    width: 100%;
+    max-height: 450px;
+    aspect-ratio: 1 / 1.45;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  button {
+    position: absolute;
+    z-index: 10;
+    top: 8px;
+    right: 4px;
+
+    .imdb-btn-content {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+    }
+  }
+
+  .details {
+    position: absolute;
+    box-sizing: border-box;
+    padding: $padding-sm;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba($primary-800, 0.5);
+    backdrop-filter: blur(3px);
+    color: $neutral-100;
+
+    h3 {
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .sub_details {
+      overflow: hidden;
+      height: 0px;
+      transition: height 300ms;
+      div {
+        margin-top: 0.25rem;
+        font-size: $text-size-xs;
+        display: flex;
+        align-items: center;
+        span {
+          margin-left: 0.25rem;
+        }
+        svg {
+          font-size: $text-size-2xl;
+          fill: #deb522;
+        }
+      }
+      span {
+        font-size: $text-size-md;
+      }
+      span:nth-of-type(2) {
+        margin-left: 0.5rem;
+      }
+    }
+  }
+}
+
+.card:hover {
+  .sub_details {
+    height: 50px;
+  }
+
+  img {
+    scale: 1.1;
+  }
+}

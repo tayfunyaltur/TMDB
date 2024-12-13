@@ -1,35 +1,96 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { DetailedMovie, Movie } from "../types/Movie.type";
+import axiosInstance from "../client";
 
 export interface MoviesState {
-  value: number;
+  searchKey: string;
+  pageCount: number;
+  results: Movie[];
+  detailedMovie?: DetailedMovie;
+  isLoading: boolean;
 }
 
 const initialState: MoviesState = {
-  value: 0,
+  searchKey: "",
+  pageCount: 1,
+  results: [],
+  detailedMovie: undefined,
+  isLoading: false,
 };
+
+export const fetchMovies = createAsyncThunk(
+  "fetchMovies",
+  async (payload: { searchKey: string; page: number }) => {
+    const { searchKey, page } = payload;
+    let response = null;
+    try {
+      response = await axiosInstance.get<{
+        Search: Movie[];
+        totalResults: number;
+        Response?: string;
+        Error?: string;
+      }>(`?s=${searchKey}&page=${page}`);
+      if (response.data.Response === "False") {
+        throw new Error(response.data.Error);
+      }
+      return response.data;
+    } catch (err: any) {
+      throw new Error(err.message);
+    }
+  }
+);
+
+export const fetchDetailedMovie = createAsyncThunk(
+  "fetchDetailedMovie",
+  async (payload: { id: string }) => {
+    let response = null;
+    try {
+      response = await axiosInstance.get<DetailedMovie>(
+        `?plot=full&i=${payload.id}`
+      );
+      if (response.data.Response === "False")
+        throw new Error(response.data.Error || "");
+    } catch (err: any) {
+      throw err;
+    }
+    return response?.data;
+  }
+);
 
 export const moviesSlice = createSlice({
   name: "movies",
   initialState,
-  reducers: {
-    increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchMovies.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchMovies.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.results = action.payload.Search;
+      state.pageCount = Math.ceil(action.payload.totalResults / 10);
+    });
+    builder.addCase(fetchMovies.rejected, (state, action) => {
+      state.isLoading = false;
+      state.results = [];
+      state.pageCount = 1;
+      console.log(action.error);
+    });
+    builder.addCase(fetchDetailedMovie.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchDetailedMovie.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.detailedMovie = action.payload;
+    });
+    builder.addCase(fetchDetailedMovie.rejected, (state, action) => {
+      state.isLoading = false;
+      state.results = [];
+      state.pageCount = 1;
+      state.detailedMovie = undefined;
+      console.log(action.error);
+    });
   },
 });
-
-// Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = moviesSlice.actions;
 
 export default moviesSlice.reducer;

@@ -1,0 +1,83 @@
+@use "../../styles/library" as *;
+
+@mixin keyframes($name) {
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin animate($animation, $duration, $method, $times) {
+  animation: $animation $duration $method $times;
+}
+
+.detail_loading {
+  width: 100vw;
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.movie_details {
+  width: 100vw;
+  height: 100dvh;
+  position: relative;
+  overflow: hidden;
+
+  .back_button {
+    z-index: 10;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    div {
+      display: flex;
+    }
+  }
+
+  img {
+    position: absolute;
+    width: 100%;
+    min-height: 120dvh;
+    @include animate(bgMovement, 120s, linear, 5);
+  }
+
+  .details {
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    color: $neutral-100;
+    box-sizing: border-box;
+    padding: 48px 48px;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(
+      1800deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 1) 70%,
+      rgba(0, 0, 0, 0) 100%
+    );
+
+    .title {
+      font-size: $text-size-5xl;
+      font-weight: $font-weight-bold;
+    }
+
+    .sub_title {
+      display: flex;
+      margin-top: 0rem;
+      gap: 16px;
+      font-size: $text-size-xl;
+    }
+    .sub_title ~ .sub_title {
+      margin-top: 1rem;
+    }
+  }
+
+  @include keyframes(bgMovement) {
+    0% {
+      transform: translateY(-100dvh);
+    }
+    100% {
+      transform: translateY(0dvh);
+    }
+  }
+}
