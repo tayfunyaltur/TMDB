@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { store, RootState } from "./store"; // Adjust based on where the store is located
+import { RootState } from "./store"; // Adjust based on where the store is located
 import moviesReducer from "./stores/movies.slice"; // Your reducer import
 import { fetchMovies, fetchDetailedMovie } from "./stores/movies.slice"; // Actions to test
 import { beforeEach, describe, expect, it, vi } from "vitest";

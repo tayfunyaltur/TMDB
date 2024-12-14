@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import TableGrid from "../../components/TableGrid";
 import { Movie } from "../../types/Movie.type";
 import Card from "../../components/Card";
