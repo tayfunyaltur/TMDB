@@ -18,6 +18,7 @@ export interface TableProps<T> {
   isSeachable?: boolean;
   searchKey?: string;
   onSearch?: (newKey: string) => void;
+  isLoading?: boolean; 
 }
 
 export interface TableGridProps<T> extends TableProps<T> {

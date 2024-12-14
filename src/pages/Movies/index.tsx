@@ -12,8 +12,11 @@ const Movies = () => {
   const dispatch = useDispatch();
   const movies = useSelector((state: RootState) => state.movies.results);
   const pageCount = useSelector((state: RootState) => state.movies.pageCount);
+  const isLoading = useSelector((state: RootState) => state.movies.isLoading);
   const [searchKey, setSearchKey] = useState("Pokemon");
+  const [debounceSearch, setDebounceSearch] = useState("Pokemon");
   const [page, setPage] = useState(1);
+  const [timer, setTimer] = useState<number | null>(null);
   const columns: Column<Movie>[] = [
     {
       accessor: "imdbID",
@@ -52,13 +55,29 @@ const Movies = () => {
   );
 
   useEffect(() => {
+    if (timer !== null) {
+      clearInterval(timer);
+    }
+    setTimer(
+      setTimeout(() => {
+        setDebounceSearch(searchKey);
+      }, 500)
+    );
+  }, [searchKey]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [debounceSearch]);
+
+  useEffect(() => {
     dispatch(
       fetchMovies({
-        searchKey,
+        searchKey: debounceSearch,
         page,
       }) as any
     );
-  }, [searchKey, page]);
+  }, [debounceSearch, page]);
+
   return (
     <TableGrid<Movie>
       isSeachable
@@ -71,6 +90,7 @@ const Movies = () => {
       columns={columns}
       data={movies}
       cardRenderer={cardRenderer}
+      isLoading={isLoading}
       onEntityClick={(value: Movie) => {
         navigate(`movie/${value.imdbID}`);
       }}

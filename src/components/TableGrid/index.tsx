@@ -17,6 +17,7 @@ const TableGrid = <T,>({
   searchKey,
   onSearch,
   isPaginated,
+  isLoading,
   page,
   pageCount,
   onPageChange,
@@ -25,6 +26,30 @@ const TableGrid = <T,>({
   const [displayType, setDisplayType] = useState<"grid" | "table">("grid");
   const toggleDisplayType = () =>
     displayType === "grid" ? setDisplayType("table") : setDisplayType("grid");
+
+  const LoadingComponent = () => {
+    return <div>Loading</div>;
+  };
+
+  const NoDataFound = () => {
+    return <div>Data Bulunamadi</div>;
+  };
+
+  const CardBody = () => {
+    if (isLoading) {
+      return <LoadingComponent />;
+    } else if (data.length === 0) {
+      return <NoDataFound />;
+    } else
+      return (
+        displayType === "grid" && (
+          <div className="table_grid">
+            {data.map((datum: T) => cardRenderer(datum))}
+          </div>
+        )
+      );
+  };
+
   return (
     <Fragment>
       <div className="table_header">
@@ -75,19 +100,14 @@ const TableGrid = <T,>({
           </div>
         )}
       </div>
-      <Fragment>
-        {displayType === "grid" && (
-          <div className="table_grid">
-            {data.map((datum: T) => cardRenderer(datum))}
-          </div>
-        )}
-      </Fragment>
+      <CardBody />
       <Fragment>
         {displayType === "table" && (
           <Table<T>
             data={data}
             columns={columns}
             onEntityClick={onEntityClick}
+            isLoading={isLoading}
           />
         )}
       </Fragment>
